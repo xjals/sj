@@ -367,13 +367,13 @@ var producGame = {
         let games = await producGame.timeTaskQuery(axios, options)
         games = allgames.filter(g => games.filter(g => g.state === '0').map(i => i.gameId).indexOf(g.id) !== -1)
         console.info('剩余未完成game', games.length)
-        let queue = new PQueue({ concurrency: 10 });
+        let queue = new PQueue({ concurrency: 2 });
 
         // 特例游戏
         // 亿万豪车2
         let others = ['1110422106']
 
-        console.info('调度任务中', '并发数', 10)
+        console.info('调度任务中', '并发数', 2)
         for (let game of games) {
             queue.add(async () => {
                 console.info(game.name)
@@ -399,12 +399,12 @@ var producGame = {
 
         await queue.onIdle()
 
-        await new Promise((resolve, reject) => setTimeout(resolve, (Math.floor(Math.random() * 10) + 30) * 10))
+        await new Promise((resolve, reject) => setTimeout(resolve, (Math.floor(Math.random() * 10) + 30) * 1000))
         games = await producGame.timeTaskQuery(axios, options)
         games = games.filter(g => g.state === '1')
         console.info('剩余未领取game', games.length)
         for (let game of games) {
-            await new Promise((resolve, reject) => setTimeout(resolve, (Math.floor(Math.random() * 10) + 15) * 10))
+            await new Promise((resolve, reject) => setTimeout(resolve, (Math.floor(Math.random() * 10) + 15) * 1000))
             await producGame.gameFlowGet(axios, {
                 ...options,
                 gameId: game.gameId
@@ -415,9 +415,9 @@ var producGame = {
         let { games, jar } = await producGame.getTaskList(axios, options)
         games = games.filter(d => d.task === '5' && d.reachState === '0' && d.task_type === 'duration')
         console.info('剩余未完成game', games.length)
-        let queue = new PQueue({ concurrency: 10 });
+        let queue = new PQueue({ concurrency: 2 });
 
-        console.info('调度任务中', '并发数', 10)
+        console.info('调度任务中', '并发数', 2)
         for (let game of games) {
             queue.add(async () => {
                 console.info(game.name)
@@ -443,23 +443,23 @@ var producGame = {
 
         await queue.onIdle()
 
-        await new Promise((resolve, reject) => setTimeout(resolve, (Math.floor(Math.random() * 10) + 30) * 10))
+        await new Promise((resolve, reject) => setTimeout(resolve, (Math.floor(Math.random() * 10) + 30) * 1000))
         let { games: cgames } = await producGame.getTaskList(axios, options)
         games = cgames.filter(d => d.task === '5' && d.reachState === '1' && d.task_type === 'duration')
         console.info('剩余未领取game', games.length)
         for (let game of games) {
-            await new Promise((resolve, reject) => setTimeout(resolve, (Math.floor(Math.random() * 10) + 20) * 10))
+            await new Promise((resolve, reject) => setTimeout(resolve, (Math.floor(Math.random() * 10) + 20) * 1000))
             await producGame.gameIntegralGet(axios, {
                 ...options,
                 taskCenterId: game.id
             })
         }
 
-        await new Promise((resolve, reject) => setTimeout(resolve, (Math.floor(Math.random() * 5) + 5) * 10))
+        await new Promise((resolve, reject) => setTimeout(resolve, (Math.floor(Math.random() * 5) + 5) * 1000))
         let { games: ngames } = await producGame.getTaskList(axios, options)
         let task_times = ngames.find(d => d.task === '3' && d.task_type === 'times')
         if (task_times && task_times.reachState === '1') {
-            await new Promise((resolve, reject) => setTimeout(resolve, (Math.floor(Math.random() * 10) + 15) * 10))
+            await new Promise((resolve, reject) => setTimeout(resolve, (Math.floor(Math.random() * 10) + 15) * 1000))
             await producGame.gameIntegralGet(axios, {
                 ...options,
                 taskCenterId: task_times.id
