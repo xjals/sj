@@ -315,9 +315,9 @@ var start = async (params) => {
   }, taskOption)
 
   // 福利社-聚人气-看视频得积分
-  // await scheduler.regTask('doWelfareActivityIntegralTask', async (request) => {
-  //   await require('./dailyOtherRewardVideo').doWelfareActivityIntegralTask(request, options)
-  // }, taskOption)
+   await scheduler.regTask('doWelfareActivityIntegralTask', async (request) => {
+     await require('./dailyOtherRewardVideo').doWelfareActivityIntegralTask(request, options)
+   }, taskOption)
 
   // 首页-签到有礼-免费领-饿了么红包
   await scheduler.regTask('dailyUnicomTask', async (request) => {
