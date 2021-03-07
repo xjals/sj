@@ -292,13 +292,13 @@ let scheduler = {
 
             // 任务执行
             // 多个任务同时执行会导致日志记录类型错误，所以仅在tryRun模式开启多个任务并发执行
-            let concurrency = scheduler.isTryRun ? 1 : 1
+            let concurrency = scheduler.isTryRun ? 5 : 5
             let queue = new PQueue({ concurrency });
             console.info('调度任务中', '并发数', concurrency)
             for (let task of will_tasks) {
                 scheduler.updateTaskFile(task, {
-                    // 限制执行时长2hours，runStopTime用于防止因意外原因导致isRunning=true的任务被中断，而未改变状态使得无法再次执行的问题
-                    runStopTime: moment().add(2, 'hours').format('YYYY-MM-DD HH:mm:ss'),
+                    // 限制执行时长0hours，runStopTime用于防止因意外原因导致isRunning=true的任务被中断，而未改变状态使得无法再次执行的问题
+                    runStopTime: moment().add(0, 'hours').format('YYYY-MM-DD HH:mm:ss'),
                     isRunning: true
                 })
                 queue.add(async () => {
@@ -348,10 +348,10 @@ let scheduler = {
                             scheduler.updateTaskFile(task, newTask)
                         } else {
                             console.info('任务错误：', err)
-                            if (task.failNum > 3) {
+                            if (task.failNum > 100) {
                                 console.error('任务错误次数过多，停止该任务后续执行')
                                 let newTask = {
-                                    taskState: 2,
+                                    taskState: 100,
                                     taskRemark: '错误过多停止'
                                 }
                                 console.notify('任务错误次数过多，停止该任务后续执行')
