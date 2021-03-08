@@ -120,14 +120,14 @@ var start = async (params) => {
   }, taskOption)
 
   // 首页-签到有礼-免费拿-看视频夺宝
-  // 易出现本次操作需要进行验证，暂时注释
-  // await scheduler.regTask('dailyVideoFreeGoods', async (request) => {
-  //   await require('./dailyVideoFreeGoods').doTask(request, options)
-  // }, {
-  //   isCircle: true,
-  //   startTime: 10 * 3600,
-  //   intervalTime: 4 * 3600
-  // })
+   易出现本次操作需要进行验证，暂时注释
+   await scheduler.regTask('dailyVideoFreeGoods', async (request) => {
+     await require('./dailyVideoFreeGoods').doTask(request, options)
+   }, {
+     isCircle: true,
+     startTime: 10 * 3600,
+     intervalTime: 4 * 3600
+   })
 
   // 首页-签到有礼-免费抽-赢vivo x60
   await scheduler.regTask('dailyNcow', async (request) => {
@@ -145,9 +145,9 @@ var start = async (params) => {
   }, taskOption)
 
   // 首页-签到有礼-免费抽-拿666积分-豪礼大派送抽奖
-  await scheduler.regTask('jflottery', async (request) => {
-    await require('./jflottery').timesDraw(request, options)
-  }, taskOption)
+//  await scheduler.regTask('jflottery', async (request) => {
+//    await require('./jflottery').timesDraw(request, options)
+//  }, taskOption)
 
   // 首页-签到有礼-免费抽-拿苹果iPad Pro(摇一摇)
   await scheduler.regTask('dailyYYY', async (request) => {
@@ -160,30 +160,30 @@ var start = async (params) => {
   }, taskOption)
 
   // 首页-签到有礼-免费抽-赢三星Galaxy Z(试试手气)
-  // 活动已下线
-  // await scheduler.regTask('dailyCheapStorePage', async (request) => {
-  //   await require('./dailyCheapStorePage').doTask(request, options)
-  // }, {
-  //   isCircle: true,
-  //   intervalTime: 4 * 3600,
-  //   ...taskOption
-  // })
+   活动已下线
+   await scheduler.regTask('dailyCheapStorePage', async (request) => {
+     await require('./dailyCheapStorePage').doTask(request, options)
+   }, {
+     isCircle: true,
+     intervalTime: 4 * 3600,
+     ...taskOption
+   })
 
   // 首页-签到有礼-免费抽-拆华为Pad(去抽奖)
-  await scheduler.regTask('dailyLKMH', async (request) => {
-    await require('./dailyLKMH').doTask(request, options)
-  }, taskOption)
+//  await scheduler.regTask('dailyLKMH', async (request) => {
+//    await require('./dailyLKMH').doTask(request, options)
+//  }, taskOption)
 
   // 首页-签到有礼-免费抽-拿iPhone12(摇一摇)
   await scheduler.regTask('dailyYYQ', async (request) => {
     await require('./dailyYYQ').doTask(request, options)
   }, taskOption)
 
-  // 首页-签到有礼-免费抽-赢Apple Watch(去抽奖)
-  // 游戏已下线
-  // await scheduler.regTask('dailyTurntablePage', async (request) => {
-  //   await require('./dailyTurntablePage').doTask(request, options)
-  // }, taskOption)
+   //首页-签到有礼-免费抽-赢Apple Watch(去抽奖)
+   //游戏已下线
+   //await scheduler.regTask('dailyTurntablePage', async (request) => {
+   //  await require('./dailyTurntablePage').doTask(request, options)
+ //  }, taskOption)
 
   // 首页-签到有礼-赚更多福利-看视频奖励5积分
   await scheduler.regTask('dailyVideo', async (request) => {
@@ -315,9 +315,9 @@ var start = async (params) => {
   }, taskOption)
 
   // 福利社-聚人气-看视频得积分
-  // await scheduler.regTask('doWelfareActivityIntegralTask', async (request) => {
-  //   await require('./dailyOtherRewardVideo').doWelfareActivityIntegralTask(request, options)
-  // }, taskOption)
+   await scheduler.regTask('doWelfareActivityIntegralTask', async (request) => {
+     await require('./dailyOtherRewardVideo').doWelfareActivityIntegralTask(request, options)
+   }, taskOption)
 
   // 首页-签到有礼-免费领-饿了么红包
   await scheduler.regTask('dailyUnicomTask', async (request) => {
@@ -383,32 +383,32 @@ var start = async (params) => {
   })
 
   // 每日0点自动兑换流量
-  await scheduler.regTask('exchangeDFlow', async (request) => {
-    await require('./exchangeDFlow').doTask(request, options)
-  }, {
-    ...taskOption,
-    startTime: 0,
-    startHours: 0,
-    ignoreRelay: true
-  })
+//  await scheduler.regTask('exchangeDFlow', async (request) => {
+//    await require('./exchangeDFlow').doTask(request, options)
+//  }, {
+//    ...taskOption,
+//    startTime: 0,
+//    startHours: 0,
+//    ignoreRelay: true
+//  })
 
   // 定时检测流量兑换
   // 可使用 --exchangeDFlowCircle-intervalTime 1800 选项指定流量检查间隔时间，单位秒
   // 可使用 --exchangeDFlowCircle-minFlow 200 选项指定流量检查最小值
   // 可使用 --exchangeDFlowCircle-productId 21010621565413402 选项指定兑换流量包ID
-  let { 'exchangeDFlowCircle-intervalTime': intervalTime = 1800 } = options
-  if (typeof intervalTime !== 'number') {
-    intervalTime = 1800
-  }
-  await scheduler.regTask('exchangeDFlowCircle', async (request) => {
-    await require('./exchangeDFlow').doCircleCheck(request, options)
-  }, {
-    ...taskOption,
-    isCircle: true,
-    intervalTime: intervalTime,
-    startTime: 5 * 60,
-    ignoreRelay: true
-  })
+//  let { 'exchangeDFlowCircle-intervalTime': intervalTime = 1800 } = options
+//  if (typeof intervalTime !== 'number') {
+//    intervalTime = 1800
+//  }
+//  await scheduler.regTask('exchangeDFlowCircle', async (request) => {
+//    await require('./exchangeDFlow').doCircleCheck(request, options)
+//  }, {
+//    ...taskOption,
+//    isCircle: true,
+//    intervalTime: intervalTime,
+//    startTime: 5 * 60,
+//    ignoreRelay: true
+//  })
 
   // 每日奖励信息结果推送
   if (!('asm_func' in process.env) || process.env.asm_func === 'false') {
