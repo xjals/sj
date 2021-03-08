@@ -83,8 +83,8 @@ var start = async (params) => {
   await scheduler.regTask('dailyBookRead10doDraw', async (request) => {
     // 首页-小说-读满10章赢好礼
     await require('./dailyVideoBook').read10doDraw(request, options)
-    // 首页-签到有礼-免流量得福利-3积分天天拿(阅读打卡)
-    await require('./dailyVideoBook').giftBoints(request, options)
+    // 首页-签到有礼-免流量得福利-3积分天天拿(阅读打卡) 已下线
+    // await require('./dailyVideoBook').giftBoints(request, options)
   }, taskOption)
 
   // 首页-小说-章节详情-看视频领积分
@@ -121,13 +121,13 @@ var start = async (params) => {
 
   // 首页-签到有礼-免费拿-看视频夺宝
   // 易出现本次操作需要进行验证，暂时注释
-  // await scheduler.regTask('dailyVideoFreeGoods', async (request) => {
-  //   await require('./dailyVideoFreeGoods').doTask(request, options)
-  // }, {
-  //   isCircle: true,
-  //   startTime: 10 * 3600,
-  //   intervalTime: 4 * 3600
-  // })
+   await scheduler.regTask('dailyVideoFreeGoods', async (request) => {
+     await require('./dailyVideoFreeGoods').doTask(request, options)
+   }, {
+     isCircle: true,
+     startTime: 10 * 3600,
+     intervalTime: 4 * 3600
+   })
 
   // 首页-签到有礼-免费抽-赢vivo x60
   await scheduler.regTask('dailyNcow', async (request) => {
@@ -315,9 +315,9 @@ var start = async (params) => {
   }, taskOption)
 
   // 福利社-聚人气-看视频得积分
-  // await scheduler.regTask('doWelfareActivityIntegralTask', async (request) => {
-  //   await require('./dailyOtherRewardVideo').doWelfareActivityIntegralTask(request, options)
-  // }, taskOption)
+   await scheduler.regTask('doWelfareActivityIntegralTask', async (request) => {
+     await require('./dailyOtherRewardVideo').doWelfareActivityIntegralTask(request, options)
+   }, taskOption)
 
   // 首页-签到有礼-免费领-饿了么红包
   await scheduler.regTask('dailyUnicomTask', async (request) => {
@@ -332,9 +332,9 @@ var start = async (params) => {
 
 
   // 我的钱包-沃钱包-幸运抽大奖
-  // await scheduler.regTask('dailyepay', async (request) => {
-  //   await require('./dailyepay').doTask(request, options)
-  // }, taskOption)
+  await scheduler.regTask('dailystw', async (request) => {
+    await require('./dailystw').doTask(request, options)
+  }, taskOption)
 
 
   // 沃钱包-联通支付日-转盘抽奖
@@ -381,6 +381,8 @@ var start = async (params) => {
     startTime: 21.5 * 3600,
     ignoreRelay: true
   })
+
+ 
   // 每日奖励信息结果推送
   if (!('asm_func' in process.env) || process.env.asm_func === 'false') {
     await scheduler.regTask('dailyNotifyReward', async (request) => {
