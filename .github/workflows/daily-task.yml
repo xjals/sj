@@ -111,7 +111,7 @@ jobs:
         password: ${{secrets.unicom_password}}
         appid: ${{secrets.unicom_appid}}
         cookie: ${{secrets.unicom_cookie}}
-      run: node index.js unicom --user=${user} --password=${password} --appid=${appid} --cookie=${cookie}
+      run: node index.js unicom --user=${user} --password=${password} --appid=${appid} --cookie=${cookie} ----tryrun
 
 
 
